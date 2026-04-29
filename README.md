@@ -1,4 +1,4 @@
-# llm_ai_chat_bot
+# LLM_ai_chat_bot
 
 A new Flutter project.
 
