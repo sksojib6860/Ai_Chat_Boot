@@ -1,16 +1,24 @@
-# llm_ai_chat_bot
-A new Flutter project.
+# 🤖 Sweet LLM-based AI Chatbot
 
-## Getting Started
+Welcome to **SweetTalk AI**, a large language model-powered chatbot designed to make conversations feel natural, engaging, and helpful.  
+It can:
+- 💬 Chat like a friend, with warmth and clarity
+- 📚 Answer questions with deep knowledge
+- 🎨 Adapt tone and style to your needs
+- ⚡ Assist with tasks, from writing to brainstorming
 
-This project is a starting point for a Flutter application.
+Here’s what it looks like in action:
 
-A few resources to get you started if this is your first Flutter project:
+![Logo](images/splash_screen.png)
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+![Chatbot Screenshot](images/chat_home.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Conversation Demo](images/chatbot_writing.png)
+
+![Image Generation Demo](images/image_generation.png)
+
+---
+
+### 🌟 Why SweetTalk AI?
+Because conversations should feel human, not robotic.  
+This chatbot blends **creativity, empathy, and intelligence** to support you in learning, working, and exploring ideas.
