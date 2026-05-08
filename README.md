@@ -9,6 +9,11 @@ It can:
 
 Here’s what it looks like in action:
 
+<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
+<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
+<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
+<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
+
 ![Logo](images/splash_screen.png)
 
 ![Chatbot Screenshot](images/chat_home.png)
