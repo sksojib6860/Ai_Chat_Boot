@@ -1,39 +1,99 @@
 import 'package:flutter/material.dart';
 
-class ChatTextField extends StatelessWidget {
-  const ChatTextField({super.key});
+import '../../../../core/constants/app_color.dart';
+
+class ChatTextField extends StatefulWidget {
+  final TextEditingController controller;
+  final VoidCallback onSend;
+
+  const ChatTextField({
+    super.key,
+    required this.controller,
+    required this.onSend,
+  });
+
+  @override
+  State<ChatTextField> createState() => _ChatTextFieldState();
+}
+
+class _ChatTextFieldState extends State<ChatTextField> {
+  bool _hasText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_updateTextState);
+  }
+
+  void _updateTextState() {
+    if (widget.controller.text.isNotEmpty != _hasText) {
+      setState(() {
+        _hasText = widget.controller.text.isNotEmpty;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_updateTextState);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        prefixIcon: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.attachment_rounded),
-        ),
-        suffixIcon: IconButton(
-          onPressed: () {},
-          color: Colors.grey.shade700,
-          icon: Icon(Icons.send),
-        ),
-        hintText: 'Ask your question',
-        filled: true,
-        fillColor: Colors.grey.shade200,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(20),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.inputBackground,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: TextField(
+                  controller: widget.controller,
+                  maxLines: null,
+                  decoration: const InputDecoration(
+                    hintText: 'Type a message...',
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            GestureDetector(
+              onTap: _hasText ? widget.onSend : null,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  gradient: _hasText ? AppColors.primaryGradient : null,
+                  color: _hasText ? null : Colors.grey.shade300,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.send_rounded,
+                  color: _hasText ? Colors.white : Colors.grey.shade500,
+                  size: 20,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

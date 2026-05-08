@@ -42,11 +42,11 @@ class ChatProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
-    void clearChat() {
-      _messages.clear();
-      _errorMessage = null;
-      notifyListeners();
-    }
+  }
+
+  void clearChat() {
+    _messages.clear();
+    _errorMessage = null;
+    notifyListeners();
   }
 }
-//TODO: 1.3 minutes running and url isLoading:https://ostad.app/dashboard/my-courses/682a82776a5bde5a54e7d2ae/recordings?play=69ee514d71f1ae268393dbb8
