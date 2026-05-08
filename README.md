@@ -1,6 +1,17 @@
 # llm_ai_chat_bot
 A new Flutter project.
 
+# My Project
+
+Here’s what the app looks like:
+
+![App Screenshot](images/screenshot.png)
+
+Or with HTML:
+
+<img src="images/screenshot.png" alt="App Screenshot" width="400">
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
