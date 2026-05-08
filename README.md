@@ -9,19 +9,10 @@ It can:
 
 Here’s what it looks like in action:
 
-<img src="images/splash_screen.png" alt="Chatbot Splash Screenshot" width="500">
-<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
-<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
-<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
-
-![Logo](images/splash_screen.png)
-
-![Chatbot Screenshot](images/chat_home.png)
-
-![Conversation Demo](images/chatbot_writing.png)
-
-![Image Generation Demo](images/image_generation.png)
-
+<img src="images/splash_screen.png" alt="Logo" width="400">
+<img src="images/chat_home.png" alt="Chatbot Screenshot" width="400">
+<img src="images/chatbot_writing.png" alt="Conversation Demo" width="400">
+<img src="images/image_generation.png" alt="Image Generation Demo" width="400">
 ---
 
 ### 🌟 Why SweetTalk AI?
