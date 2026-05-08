@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:llm_ai_chat_bot/core/entities/message_entitie.dart';
 
 import '../../../../core/constants/app_color.dart';
 import '../../../../data/model/message_model.dart';
@@ -11,6 +12,7 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isUser = message.role == 'user';
+    bool isImage = message.messageType == MessageType.image;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -51,14 +53,56 @@ class ChatBubble extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Text(
-                    message.text,
-                    style: TextStyle(
-                      color: isUser ? AppColors.userText : AppColors.botText,
-                      fontSize: 15,
-                      height: 1.4,
-                    ),
-                  ),
+                  child: isImage
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                message.imageUrl!,
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.error, color: Colors.red),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              message.text,
+                              style: TextStyle(
+                                color: isUser
+                                    ? AppColors.userText
+                                    : AppColors.botText,
+                                fontSize: 15,
+                                height: 1.4,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          message.text,
+                          style: TextStyle(
+                            color:
+                                isUser ? AppColors.userText : AppColors.botText,
+                            fontSize: 15,
+                            height: 1.4,
+                          ),
+                        ),
                 ),
               ),
               if (isUser) ...[

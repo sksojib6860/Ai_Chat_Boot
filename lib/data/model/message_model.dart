@@ -1,8 +1,13 @@
 import '../../core/entities/message_entitie.dart';
 
 class MessageModel extends MessageEntities {
-  MessageModel(
-      {required super.role, required super.text, required super.timeDate});
+  MessageModel({
+    required super.role,
+    required super.text,
+    required super.timeDate,
+    super.messageType = MessageType.text,
+    super.imageUrl,
+  });
 
   factory MessageModel.sampleUser() => MessageModel(
       role: 'user', text: 'i need career help', timeDate: DateTime.now());

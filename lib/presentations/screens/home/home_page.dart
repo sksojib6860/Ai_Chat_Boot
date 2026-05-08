@@ -50,21 +50,27 @@ class _HomePageState extends State<HomePage> {
                 CircleAvatar(
                   radius: 18,
                   backgroundColor: AppColors.primary.withValues(alpha: 0.1),
-                  child: const Icon(Icons.smart_toy_outlined,
-                      size: 20, color: AppColors.primary),
+                  child: Icon(
+                      chatProvider.currentMode == ChatMode.chat
+                          ? Icons.smart_toy_outlined
+                          : Icons.image_outlined,
+                      size: 20,
+                      color: AppColors.primary),
                 ),
                 const SizedBox(width: 12),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'AI Assistant',
-                      style: TextStyle(
+                      chatProvider.currentMode == ChatMode.chat
+                          ? 'AI Chat Bot'
+                          : 'AI Image Generator',
+                      style: const TextStyle(
                           color: AppColors.botText,
                           fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    const Text(
                       'Online',
                       style: TextStyle(color: Colors.green, fontSize: 12),
                     ),
@@ -83,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Expanded(
                 child: chatProvider.messages.isEmpty
-                    ? _buildWelcomeScreen()
+                    ? _buildWelcomeScreen(chatProvider)
                     : ListView.builder(
                         controller: _scrollController,
                         padding: const EdgeInsets.symmetric(vertical: 20),
@@ -109,6 +115,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ChatTextField(
                 controller: _controller,
+                hintText: chatProvider.currentMode == ChatMode.chat
+                    ? 'Type a message...'
+                    : 'Describe the image you want...',
                 onSend: () {
                   final text = _controller.text;
                   _controller.clear();
@@ -117,12 +126,30 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: chatProvider.currentMode == ChatMode.chat ? 0 : 1,
+            onTap: (index) {
+              chatProvider.setMode(index == 0 ? ChatMode.chat : ChatMode.image);
+            },
+            selectedItemColor: AppColors.primary,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat_bubble_outline),
+                label: 'Chat',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.image_outlined),
+                label: 'Image',
+              ),
+            ],
+          ),
         );
       },
     );
   }
 
-  Widget _buildWelcomeScreen() {
+  Widget _buildWelcomeScreen(ChatProvider chatProvider) {
+    bool isChat = chatProvider.currentMode == ChatMode.chat;
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -134,15 +161,15 @@ class _HomePageState extends State<HomePage> {
                 shape: BoxShape.circle,
                 color: AppColors.primary.withValues(alpha: 0.05),
               ),
-              child: const Icon(
-                Icons.smart_toy_outlined,
+              child: Icon(
+                isChat ? Icons.smart_toy_outlined : Icons.palette_outlined,
                 size: 80,
                 color: AppColors.primary,
               ),
             ),
             const SizedBox(height: 24),
             Text(
-              AppStrings.helloText,
+              isChat ? AppStrings.helloText : 'Image Generator',
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -151,7 +178,9 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 8),
             Text(
-              AppStrings.howCanIHelpYou,
+              isChat
+                  ? AppStrings.howCanIHelpYou
+                  : 'Turn your words into art with AI',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -159,20 +188,22 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 40),
-            _buildQuickActions(),
+            _buildQuickActions(chatProvider),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildQuickActions() {
-    final actions = [
-      'Tell me a joke',
-      'How does AI work?',
-      'Write a poem',
-      'Career advice'
-    ];
+  Widget _buildQuickActions(ChatProvider chatProvider) {
+    final actions = chatProvider.currentMode == ChatMode.chat
+        ? ['Tell me a joke', 'How does AI work?', 'Write a poem', 'Career advice']
+        : [
+            'A futuristic city',
+            'Cyberpunk cat',
+            'Mountain landscape',
+            'Space explorer'
+          ];
     return Wrap(
       spacing: 10,
       runSpacing: 10,
@@ -180,7 +211,7 @@ class _HomePageState extends State<HomePage> {
       children: actions.map((action) {
         return ActionChip(
           label: Text(action),
-          onPressed: () => context.read<ChatProvider>().sendMessage(action),
+          onPressed: () => chatProvider.sendMessage(action),
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),

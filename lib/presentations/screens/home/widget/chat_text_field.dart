@@ -5,11 +5,13 @@ import '../../../../core/constants/app_color.dart';
 class ChatTextField extends StatefulWidget {
   final TextEditingController controller;
   final VoidCallback onSend;
+  final String hintText;
 
   const ChatTextField({
     super.key,
     required this.controller,
     required this.onSend,
+    this.hintText = 'Type a message...',
   });
 
   @override
@@ -65,11 +67,11 @@ class _ChatTextFieldState extends State<ChatTextField> {
                 child: TextField(
                   controller: widget.controller,
                   maxLines: null,
-                  decoration: const InputDecoration(
-                    hintText: 'Type a message...',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
+                  decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    hintStyle: const TextStyle(color: Colors.grey, fontSize: 15),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     border: InputBorder.none,
                   ),
                 ),
