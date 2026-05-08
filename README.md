@@ -9,7 +9,7 @@ It can:
 
 Here’s what it looks like in action:
 
-<img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
+<img src="images/splash_screen.png" alt="Chatbot Splash Screenshot" width="500">
 <img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
 <img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
 <img src="images/screenshot1.png" alt="Chatbot Screenshot" width="500">
